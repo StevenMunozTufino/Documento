@@ -2,15 +2,27 @@
 <html lang="es">
 <head>
   <meta charset="utf-8">
-  <title>HTML</title>
+  <title>Recibo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="estilo.css">
   <style>
-    /* Definir un estilo para el cuerpo de la página */
     body {
+      font-family: Arial, sans-serif;
       max-width: 100%;
-      margin: 0 auto; /* Centrar el contenido */
-      overflow: auto; /* Agregar barras de desplazamiento si es necesario */
+      margin: 0 auto;
+      overflow: auto;
+    }
+    .recibo {
+      width: 300px; /* Ancho del recibo */
+      margin: 0 auto;
+      border: 1px solid #000;
+      padding: 10px;
+    }
+    .titulo {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .item {
+      margin-bottom: 5px;
     }
   </style>
   <script>
@@ -26,28 +38,39 @@
       return parametros;
     }
 
-    // Función para mostrar los parámetros en la página
-    function mostrarParametros() {
+    // Función para generar el recibo
+    function generarRecibo() {
       var parametros = obtenerParametros();
       var cuerpoPagina = document.getElementsByTagName("body")[0];
-      var lista = document.createElement("ul");
+      var recibo = document.createElement("div");
+      recibo.className = "recibo";
+      var titulo = document.createElement("h2");
+      titulo.className = "titulo";
+      titulo.textContent = "Recibo de Compra";
+      recibo.appendChild(titulo);
       for (var clave in parametros) {
-        var itemLista = document.createElement("li");
-        var texto = document.createTextNode(clave + ": " + parametros[clave]);
-        itemLista.appendChild(texto);
-        lista.appendChild(itemLista);
+        if (parametros.hasOwnProperty(clave)) {
+          var lista = document.createElement("ul");
+          var datos = parametros[clave].split(",");
+          for (var i = 0; i < datos.length; i++) {
+            var itemLista = document.createElement("li");
+            itemLista.className = "item";
+            var texto = document.createTextNode(datos[i]);
+            itemLista.appendChild(texto);
+            lista.appendChild(itemLista);
+          }
+          recibo.appendChild(lista);
+        }
       }
-      cuerpoPagina.appendChild(lista);
-      
+      cuerpoPagina.appendChild(recibo);
       // Imprimir la página automáticamente
       window.print();
     }
 
     // Llamar a la función cuando la página haya cargado
-    window.onload = mostrarParametros;
+    window.onload = generarRecibo;
   </script>
 </head>
-
 <body>
   <p>Esta página web es una página HTML válida.</p>
 </body>
