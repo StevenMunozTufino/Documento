@@ -6,9 +6,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="estilo.css">
   <style>
-    /* Estilos para ocultar la página */
+    /* Estilos para el cuerpo de la página */
     body {
-      display: none; /* Ocultar el cuerpo de la página */
+      margin: 0; /* Eliminar margen */
+      padding: 20px; /* Añadir un espacio entre el borde y el contenido */
+      background-color: #f2f2f2; /* Color de fondo gris */
+    }
+    
+    /* Estilos para el contenedor de la información */
+    .informacion {
+      max-width: 800px; /* Limitar el ancho de la información */
+      margin: 0 auto; /* Centrar horizontalmente */
+      background-color: #ffffff; /* Fondo blanco */
+      padding: 20px; /* Espaciado interno */
+      border-radius: 10px; /* Bordes redondeados */
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra ligera */
     }
   </style>
   <script>
@@ -28,14 +40,15 @@
     function imprimirPagina() {
       var parametros = obtenerParametros();
       var cuerpoPagina = document.getElementsByTagName("body")[0];
-      var lista = document.createElement("ul");
+      var informacionDiv = document.createElement("div");
+      informacionDiv.className = "informacion";
       for (var clave in parametros) {
-        var itemLista = document.createElement("li");
+        var parrafo = document.createElement("p");
         var texto = document.createTextNode(clave + ": " + parametros[clave]);
-        itemLista.appendChild(texto);
-        lista.appendChild(itemLista);
+        parrafo.appendChild(texto);
+        informacionDiv.appendChild(parrafo);
       }
-      cuerpoPagina.appendChild(lista);
+      cuerpoPagina.appendChild(informacionDiv);
 
       // Mostrar la página y enviarla a imprimir
       cuerpoPagina.style.display = "block"; // Mostrar el cuerpo de la página
@@ -48,6 +61,5 @@
 </head>
 
 <body>
-  <p>Esta página web es una página HTML válida. Final</p>
 </body>
 </html>
