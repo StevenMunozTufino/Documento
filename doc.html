@@ -48,20 +48,34 @@
       titulo.className = "titulo";
       titulo.textContent = "Recibo de Compra";
       recibo.appendChild(titulo);
-      for (var clave in parametros) {
-        if (parametros.hasOwnProperty(clave)) {
+
+      // Verificar que se hayan recibido todos los parámetros necesarios
+      if ('productos' in parametros && 'cantidad' in parametros && 'total' in parametros && 'totalcompra' in parametros) {
+        var productos = parametros['productos'].split(",");
+        var cantidad = parametros['cantidad'].split(",");
+        var total = parametros['total'].split(",");
+        var totalcompra = parametros['totalcompra'];
+        
+        for (var i = 0; i < productos.length; i++) {
           var lista = document.createElement("ul");
-          var datos = parametros[clave].split(",");
-          for (var i = 0; i < datos.length; i++) {
-            var itemLista = document.createElement("li");
-            itemLista.className = "item";
-            var texto = document.createTextNode(datos[i]);
-            itemLista.appendChild(texto);
-            lista.appendChild(itemLista);
-          }
+          var itemLista = document.createElement("li");
+          itemLista.className = "item";
+          var texto = document.createTextNode("Producto: " + productos[i] + ", Cantidad: " + cantidad[i] + ", Total: $" + total[i]);
+          itemLista.appendChild(texto);
+          lista.appendChild(itemLista);
           recibo.appendChild(lista);
         }
+        
+        var totalCompraElemento = document.createElement("p");
+        totalCompraElemento.textContent = "Total de la compra: $" + totalcompra;
+        recibo.appendChild(totalCompraElemento);
+        
+      } else {
+        var mensajeError = document.createElement("p");
+        mensajeError.textContent = "Error: No se han proporcionado todos los parámetros necesarios.";
+        recibo.appendChild(mensajeError);
       }
+      
       cuerpoPagina.appendChild(recibo);
       // Imprimir la página automáticamente
       window.print();
