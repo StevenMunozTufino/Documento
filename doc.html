@@ -6,11 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="estilo.css">
   <style>
-    /* Definir un estilo para el cuerpo de la página */
+    /* Estilos para ocultar la página */
     body {
-      max-width: 100%;
-      margin: 0 auto; /* Centrar el contenido */
-      overflow: auto; /* Agregar barras de desplazamiento si es necesario */
+      display: none; /* Ocultar el cuerpo de la página */
     }
   </style>
   <script>
@@ -26,8 +24,8 @@
       return parametros;
     }
 
-    // Función para mostrar los parámetros en la página
-    function mostrarParametros() {
+    // Función para mostrar los parámetros en la página y enviarla a imprimir
+    function imprimirPagina() {
       var parametros = obtenerParametros();
       var cuerpoPagina = document.getElementsByTagName("body")[0];
       var lista = document.createElement("ul");
@@ -38,18 +36,18 @@
         lista.appendChild(itemLista);
       }
       cuerpoPagina.appendChild(lista);
-      
-      // Imprimir la página automáticamente
-      window.print();
+
+      // Mostrar la página y enviarla a imprimir
+      cuerpoPagina.style.display = "block"; // Mostrar el cuerpo de la página
+      window.print(); // Imprimir la página
     }
 
     // Llamar a la función cuando la página haya cargado
-    window.onload = mostrarParametros;
+    window.onload = imprimirPagina;
   </script>
 </head>
 
 <body>
-  <p>Esta página web es una página HTML válida.</p>
+  <p>Esta página web es una página HTML válida. Final</p>
 </body>
 </html>
-
