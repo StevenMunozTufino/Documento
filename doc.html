@@ -5,6 +5,36 @@
   <title>HTML</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="estilo.css">
+  <script>
+    // Función para obtener los parámetros de la URL
+    function obtenerParametros() {
+      var parametros = {};
+      var query = window.location.search.substring(1);
+      var pares = query.split("&");
+      for (var i = 0; i < pares.length; i++) {
+        var par = pares[i].split("=");
+        parametros[par[0]] = par[1];
+      }
+      return parametros;
+    }
+
+    // Función para mostrar los parámetros en la página
+    function mostrarParametros() {
+      var parametros = obtenerParametros();
+      var cuerpoPagina = document.getElementsByTagName("body")[0];
+      var lista = document.createElement("ul");
+      for (var clave in parametros) {
+        var itemLista = document.createElement("li");
+        var texto = document.createTextNode(clave + ": " + parametros[clave]);
+        itemLista.appendChild(texto);
+        lista.appendChild(itemLista);
+      }
+      cuerpoPagina.appendChild(lista);
+    }
+
+    // Llamar a la función cuando la página haya cargado
+    window.onload = mostrarParametros;
+  </script>
 </head>
 
 <body>
