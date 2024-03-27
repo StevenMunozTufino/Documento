@@ -2,41 +2,9 @@
 <html lang="es">
 <head>
   <meta charset="utf-8">
-  <title>Comprobante de Venta</title>
+  <title>HTML</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    /* Estilos generales */
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-      font-size: 12px;
-    }
-    
-    /* Estilos para el contenedor del comprobante */
-    .comprobante {
-      width: 80mm; /* Ancho del papel térmico de 80mm */
-      margin: 0 auto; /* Centrar horizontalmente */
-      background-color: #ffffff;
-      padding: 10px;
-      box-sizing: border-box; /* Incluir el padding en el ancho total */
-      border: 1px solid #ccc;
-    }
-    
-    /* Estilos para los elementos del comprobante */
-    .titulo {
-      font-size: 16px;
-      font-weight: bold;
-      text-align: center;
-      margin-bottom: 10px;
-    }
-    .detalle {
-      margin-bottom: 10px;
-    }
-    .detalle span {
-      font-weight: bold;
-    }
-  </style>
+  <link rel="stylesheet" href="estilo.css">
   <script>
     // Función para obtener los parámetros de la URL
     function obtenerParametros() {
@@ -50,41 +18,29 @@
       return parametros;
     }
 
-    // Función para mostrar los parámetros en el comprobante
-    function mostrarComprobante() {
+    // Función para mostrar los parámetros en la página
+    function mostrarParametros() {
       var parametros = obtenerParametros();
-      var comprobanteDiv = document.createElement("div");
-      comprobanteDiv.className = "comprobante";
-      
-      // Título del comprobante
-      var titulo = document.createElement("div");
-      titulo.className = "titulo";
-      titulo.textContent = "Comprobante de Venta";
-      comprobanteDiv.appendChild(titulo);
-
-      // Detalles de la venta
+      var cuerpoPagina = document.getElementsByTagName("body")[0];
+      var lista = document.createElement("ul");
       for (var clave in parametros) {
-        var detalle = document.createElement("div");
-        detalle.className = "detalle";
-        var texto = document.createElement("span");
-        texto.textContent = clave + ": ";
-        detalle.appendChild(texto);
-        detalle.textContent += parametros[clave];
-        comprobanteDiv.appendChild(detalle);
+        var itemLista = document.createElement("li");
+        var texto = document.createTextNode(clave + ": " + parametros[clave]);
+        itemLista.appendChild(texto);
+        lista.appendChild(itemLista);
       }
-
-      // Agregar el comprobante al cuerpo de la página
-      document.body.appendChild(comprobanteDiv);
-
+      cuerpoPagina.appendChild(lista);
+      
       // Imprimir la página automáticamente
       window.print();
     }
 
     // Llamar a la función cuando la página haya cargado
-    window.onload = mostrarComprobante;
+    window.onload = mostrarParametros;
   </script>
 </head>
+
 <body>
+  <p>Esta página web es una página HTML válida.</p>
 </body>
 </html>
-
