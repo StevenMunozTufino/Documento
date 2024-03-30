@@ -14,15 +14,30 @@
     .recibo {
       width: 300px; /* Ancho del recibo */
       margin: 0 auto;
-      border: 1px solid #000;
       padding: 10px;
+      border: none; /* Eliminar los bordes */
     }
     .titulo {
       text-align: center;
       margin-bottom: 10px;
     }
+    .logo {
+      text-align: center;
+      margin-bottom: 10px;
+    }
     .item {
       margin-bottom: 5px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .cantidad {
+      width: 60px; /* Ancho para la cantidad */
+    }
+    .producto {
+      flex-grow: 1; /* Para que ocupe el espacio restante */
+    }
+    .total {
+      width: 100px; /* Ancho para el total */
     }
   </style>
   <script>
@@ -44,6 +59,12 @@
       var cuerpoPagina = document.getElementsByTagName("body")[0];
       var recibo = document.createElement("div");
       recibo.className = "recibo";
+      
+      var logo = document.createElement("div");
+      logo.className = "logo";
+      logo.innerHTML = "<img src='ruta/al/logo.png' alt='Logo'>";
+      recibo.appendChild(logo);
+
       var titulo = document.createElement("h2");
       titulo.className = "titulo";
       titulo.textContent = "Recibo de Compra";
@@ -57,17 +78,27 @@
         var totalcompra = parametros['totalcompra'];
         
         for (var i = 0; i < productos.length; i++) {
-          var lista = document.createElement("ul");
-          var itemLista = document.createElement("li");
-          itemLista.className = "item";
-          var texto = document.createTextNode("Producto: " + productos[i] + ", Cantidad: " + cantidad[i] + ", Total: $" + total[i]);
-          itemLista.appendChild(texto);
-          lista.appendChild(itemLista);
-          recibo.appendChild(lista);
+          var item = document.createElement("div");
+          item.className = "item";
+          var cantidadElement = document.createElement("div");
+          cantidadElement.className = "cantidad";
+          cantidadElement.textContent = cantidad[i];
+          var productoElement = document.createElement("div");
+          productoElement.className = "producto";
+          productoElement.textContent = productos[i];
+          var totalElement = document.createElement("div");
+          totalElement.className = "total";
+          totalElement.textContent = "$" + total[i];
+          
+          item.appendChild(cantidadElement);
+          item.appendChild(productoElement);
+          item.appendChild(totalElement);
+          
+          recibo.appendChild(item);
         }
         
         var totalCompraElemento = document.createElement("p");
-        totalCompraElemento.textContent = "Total de la compra: $" + totalcompra;
+        totalCompraElemento.textContent = "Total ............................................ $" + totalcompra;
         recibo.appendChild(totalCompraElemento);
         
       } else {
@@ -86,5 +117,6 @@
   </script>
 </head>
 <body>
+  <p>Esta página web es una página HTML válida.</p>
 </body>
 </html>
