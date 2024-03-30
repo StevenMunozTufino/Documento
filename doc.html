@@ -33,7 +33,7 @@
       var pares = query.split("&");
       for (var i = 0; i < pares.length; i++) {
         var par = pares[i].split("=");
-        parametros[par[0]] = par[1];
+        parametros[par[0]] = decodeURIComponent(par[1]); // Decodificar el valor del parámetro
       }
       return parametros;
     }
@@ -86,6 +86,5 @@
   </script>
 </head>
 <body>
-  <p>Esta página web es una página HTML válida.</p>
 </body>
 </html>
